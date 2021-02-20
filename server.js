@@ -7,10 +7,6 @@ const app = express();
 
 const PORT = process.env.PORT;
 
-app.get('/', (req, res) => {
-  console.log('OK, inside get');
-});
-
 app.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
