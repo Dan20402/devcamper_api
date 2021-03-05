@@ -5,8 +5,22 @@ const ErrorResponse = require('../utils/errorResponse');
 //@route        GET /api/v1/bootcamps
 //@access       Public
 exports.getBootcamps = async (req, res, next) => {
+  let query;
+  let queryStr = JSON.stringify(req.query);
+
+  console.log(queryStr);
+
+  queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in)\b/g,
+    (match) => `$${match}`
+  );
+  console.log(req.query);
+
+  query = Bootcamp.find(JSON.parse(queryStr));
+
   try {
-    const bootcamps = await Bootcamp.find();
+    const bootcamps = await query;
+
     res
       .status(200)
       .send({ success: true, count: bootcamps.length, data: bootcamps });
